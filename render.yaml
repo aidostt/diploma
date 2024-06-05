@@ -1,49 +1,71 @@
+version: 1
 services:
   - type: web
     name: api-gateway
-    env: docker
-    plan: free
+    runtime: docker
     dockerfilePath: ./main-api-gateway/Dockerfile
+    dockerContext: ./main-api-gateway
     envVars:
-      - file: ./main-api-gateway/.env
-
+      - key: ENV_FILE
+        value: ./main-api-gateway/.env
+    healthCheckPath: /
+    ports:
+      - 8000:8000
+    envVarGroups:
+      - name: api-gateway-env
+        envVars:
+          - key: ENV_FILE
+            value: ./main-api-gateway/.env
+    depends_on:
+      - authentication-service
+      - notification-service
+      - qrcode-service
+      - reservation-service
 
   - type: web
     name: authentication-service
-    env: docker
-    plan: free
+    runtime: docker
     dockerfilePath: ./authentication-service/Dockerfile
+    dockerContext: ./authentication-service
     envVars:
-      - file: ./authentication-service/.env
+      - key: ENV_FILE
+        value: ./authentication-service/.env
+    depends_on:
+      - mongodb
 
   - type: web
     name: notification-service
-    env: docker
-    plan: free
+    runtime: docker
     dockerfilePath: ./notification-service/Dockerfile
+    dockerContext: ./notification-service
     envVars:
-      - file: ./notification-service/.env
+      - key: ENV_FILE
+        value: ./notification-service/.env
 
   - type: web
     name: qrcode-service
-    env: docker
-    plan: free
+    runtime: docker
     dockerfilePath: ./qrcode-service/Dockerfile
+    dockerContext: ./qrcode-service
     envVars:
-      - file: ./qrcode-service/.env
+      - key: ENV_FILE
+        value: ./qrcode-service/.env
 
   - type: web
     name: reservation-service
-    env: docker
-    plan: free
+    runtime: docker
     dockerfilePath: ./reservation-service/Dockerfile
+    dockerContext: ./reservation-service
     envVars:
-      - file: ./reservation-service/.env
+      - key: ENV_FILE
+        value: ./reservation-service/.env
+    depends_on:
+      - postgres
 
-databases:
-  - name: mongodb
-    plan: free
-
-  - name: postgres
-    plan: free
-
+  - type: dpg
+    name: postgres
+    databaseName: ${DB_NAME}
+    user: ${DB_USER}
+    region: frankfurt
+    postgresMajorVersion: 16
+    plan: starter
