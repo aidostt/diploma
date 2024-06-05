@@ -4,18 +4,16 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./main-api-gateway/Dockerfile
-    buildContextPath: ./main-api-gateway
     envVars:
       - file: ./main-api-gateway/.env
-    ports:
-      - 8000:8000
+    containerPort: 8000
+    hostPort: 8000
 
   - type: web
     name: authentication-service
     env: docker
     plan: free
     dockerfilePath: ./authentication-service/Dockerfile
-    buildContextPath: ./authentication-service
     envVars:
       - file: ./authentication-service/.env
 
@@ -24,7 +22,6 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./notification-service/Dockerfile
-    buildContextPath: ./notification-service
     envVars:
       - file: ./notification-service/.env
 
@@ -33,7 +30,6 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./qrcode-service/Dockerfile
-    buildContextPath: ./qrcode-service
     envVars:
       - file: ./qrcode-service/.env
 
@@ -42,30 +38,23 @@ services:
     env: docker
     plan: free
     dockerfilePath: ./reservation-service/Dockerfile
-    buildContextPath: ./reservation-service
     envVars:
       - file: ./reservation-service/.env
 
 databases:
   - name: mongodb
     plan: free
-    properties:
-      image: mongo:latest
-      volumes:
-        - path: /data/db
-          size: 1GB
+    image: mongo:latest
+    volumes:
+      - path: /data/db
+        size: 1GB
 
   - name: postgres
     plan: free
     properties:
       image: postgres:latest
-      envVars:
-        - key: POSTGRES_USER
-          value: ${DB_USER}
-        - key: POSTGRES_PASSWORD
-          value: ${DB_PASSWORD}
-        - key: POSTGRES_DB
-          value: ${DB_NAME}
+      envGroups:
+        - name: your-environment-group-name
       volumes:
         - path: /var/lib/postgresql/data
           size: 1GB
