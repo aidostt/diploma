@@ -11,11 +11,6 @@ services:
     healthCheckPath: /
     ports:
       - 8000:8000
-    envVarGroups:
-      - name: api-gateway-env
-        envVars:
-          - key: ENV_FILE
-            value: ./main-api-gateway/.env
     depends_on:
       - authentication-service
       - notification-service
@@ -62,10 +57,13 @@ services:
     depends_on:
       - postgres
 
-  - type: dpg
-    name: postgres
-    databaseName: ${DB_NAME}
-    user: ${DB_USER}
+  - type: redis
+    name: mongodb
+    plan: starter
+
+databases:
+  - name: postgres
+    databaseName: reservista
     region: frankfurt
-    postgresMajorVersion: 16
+    postgresMajorVersion: 13
     plan: starter
