@@ -44,17 +44,10 @@ services:
 databases:
   - name: mongodb
     plan: free
-    image: mongo:latest
-    volumes:
-      - path: /data/db
-        size: 1GB
+
 
   - name: postgres
     plan: free
-    properties:
-      image: postgres:latest
-      envGroups:
-        - name: your-environment-group-name
-      volumes:
-        - path: /var/lib/postgresql/data
-          size: 1GB
+    envGroups:
+      - name: your-environment-group-name
+    
