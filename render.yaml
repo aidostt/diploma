@@ -6,8 +6,7 @@ services:
     dockerfilePath: ./main-api-gateway/Dockerfile
     envVars:
       - file: ./main-api-gateway/.env
-    containerPort: 8000
-    hostPort: 8000
+
 
   - type: web
     name: authentication-service
@@ -45,9 +44,6 @@ databases:
   - name: mongodb
     plan: free
 
-
   - name: postgres
     plan: free
-    envGroups:
-      - name: your-environment-group-name
-    
+
