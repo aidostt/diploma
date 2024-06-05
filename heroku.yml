@@ -20,13 +20,18 @@ build:
 
 run:
   api-gateway:
-    command: ./main-api-gateway/api-gateway
+    command:
+      - "./main-api-gateway/api-gateway"
   authentication-service:
-    command: ./authentication-service/authentication-service
+    command:
+      - "./authentication-service/authentication-service"
   notification-service:
-    command: ./notification-service/notification-service
+    command:
+      - "./notification-service/notification-service"
   qrcode-service:
-    command: ./qrcode-service/qrcode-service
+    command:
+      - "./qrcode-service/qrcode-service"
   reservation-service:
-    command: ./reservation-service/reservation-service
+    command:
+      - "./reservation-service/reservation-service"
 
