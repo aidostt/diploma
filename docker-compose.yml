@@ -1,0 +1,74 @@
+version: '3.8'
+services:
+  api-gateway:
+    build:
+      context: ./main-api-gateway
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - authentication-service
+      - notification-service
+      - qrcode-service
+      - reservation-service
+    env_file:
+      - ./main-api-gateway/.env
+
+
+  authentication-service:
+    build:
+      context: ./authentication-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./authentication-service/.env
+    depends_on:
+      - mongodb
+
+
+  notification-service:
+    build:
+      context: ./notification-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./notification-service/.env
+
+
+  qrcode-service:
+    build:
+      context: ./qrcode-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./qrcode-service/.env
+
+
+  reservation-service:
+    build:
+      context: ./reservation-service
+      dockerfile: Dockerfile
+    env_file:
+      - ./reservation-service/.env
+    depends_on:
+      - postgres
+
+
+  mongodb:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+volumes:
+  mongo_data:
+  postgres_data:

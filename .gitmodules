@@ -1,0 +1,18 @@
+[submodule "notification-service"]
+	path = notification-service
+	url = git@github.com:aidostt/notification-service.git
+[submodule "main-api-gateway"]
+	path = main-api-gateway
+	url = git@github.com:aidostt/main-api-gateway.git
+[submodule "authentication-service"]
+	path = authentication-service
+	url = git@github.com:aidostt/authentication-service.git
+[submodule "reservation-service"]
+	path = reservation-service
+	url = git@github.com:buzukbuzuk/reservation.git
+[submodule "protos"]
+	path = protos
+	url = git@github.com:aidostt/protos.git
+[submodule "front-web"]
+	path = front-web
+	url = git@github.com:Drunck/reservista-front-web.git
