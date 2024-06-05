@@ -8,15 +8,15 @@ setup:
 build:
   docker:
     api-gateway:
-      dockerfile: /main-api-gateway/Dockerfile
+      dockerfile: ./Dockerfile
     authentication-service:
-      dockerfile: /authentication-service/Dockerfile
+      dockerfile: ./Dockerfile
     notification-service:
-      dockerfile: /notification-service/Dockerfile
+      dockerfile: ./Dockerfile
     qrcode-service:
-      dockerfile: /qrcode-service/Dockerfile
+      dockerfile: ./Dockerfile
     reservation-service:
-      dockerfile: /reservation-service/Dockerfile
+      dockerfile: ./Dockerfile
 
 run:
   api-gateway:
