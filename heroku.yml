@@ -1,17 +1,41 @@
 setup:
   addons:
-    - plan: heroku-postgresql:hobby-dev
+    - plan: heroku-postgresql
+      as: DATABASE
+    - plan: mongolab
+      as: MONGODB
 
 build:
   docker:
-    web: Dockerfile
-  config:
-    DATABASE_URL: $(DATABASE_URL)
-
-release:
-  command:
-    - docker-compose -f docker-compose.yml up --build
+    api-gateway:
+      dockerfile: ./main-api-gateway/Dockerfile
+    authentication-service:
+      dockerfile: ./authentication-service/Dockerfile
+    notification-service:
+      dockerfile: ./notification-service/Dockerfile
+    qrcode-service:
+      dockerfile: ./qrcode-service/Dockerfile
+    reservation-service:
+      dockerfile: ./reservation-service/Dockerfile
 
 run:
-  web: docker-compose -f docker-compose.yml up
-
+  api-gateway:
+    web: api-gateway
+    env:
+      - file: ./main-api-gateway/.env
+  authentication-service:
+    worker: authentication-service
+    env:
+      - file: ./authentication-service/.env
+  notification-service:
+    worker: notification-service
+    env:
+      - file: ./notification-service/.env
+  qrcode-service:
+    worker: qrcode-service
+    env:
+      - file: ./qrcode-service/.env
+  reservation-service:
+    worker: reservation-service
+    env:
+      - file: ./reservation-service/.env
