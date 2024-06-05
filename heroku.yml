@@ -20,22 +20,13 @@ build:
 
 run:
   api-gateway:
-    web: api-gateway
-    env:
-      - file: ./main-api-gateway/.env
+    command: ./main-api-gateway/api-gateway
   authentication-service:
-    worker: authentication-service
-    env:
-      - file: ./authentication-service/.env
+    command: ./authentication-service/authentication-service
   notification-service:
-    worker: notification-service
-    env:
-      - file: ./notification-service/.env
+    command: ./notification-service/notification-service
   qrcode-service:
-    worker: qrcode-service
-    env:
-      - file: ./qrcode-service/.env
+    command: ./qrcode-service/qrcode-service
   reservation-service:
-    worker: reservation-service
-    env:
-      - file: ./reservation-service/.env
+    command: ./reservation-service/reservation-service
+
