@@ -8,14 +8,8 @@ services:
     envVars:
       - key: ENV_FILE
         value: ./main-api-gateway/.env
-    healthCheckPath: /
-    ports:
-      - 8000:8000
-    depends_on:
-      - authentication-service
-      - notification-service
-      - qrcode-service
-      - reservation-service
+    healthCheckPath: /ping
+
 
   - type: web
     name: authentication-service
@@ -25,8 +19,6 @@ services:
     envVars:
       - key: ENV_FILE
         value: ./authentication-service/.env
-    depends_on:
-      - mongodb
 
   - type: web
     name: notification-service
@@ -54,12 +46,6 @@ services:
     envVars:
       - key: ENV_FILE
         value: ./reservation-service/.env
-    depends_on:
-      - postgres
-
-  - type: redis
-    name: mongodb
-    plan: starter
 
 databases:
   - name: postgres
