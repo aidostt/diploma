@@ -13,9 +13,6 @@
 [submodule "protos"]
 	path = protos
 	url = git@github.com:aidostt/protos.git
-[submodule "front-web"]
-	path = front-web
-	url = git@github.com:Drunck/reservista-front-web.git
 [submodule "qrcode-service"]
 	path = qrcode-service
 	url = git@github.com:aidostt/qrcode-service.git
