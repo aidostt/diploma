@@ -8,13 +8,17 @@ setup:
 build:
   docker:
     api-gateway:
-      dockerfile: ./main-api-gateway/Dockerfile
+      web: api-gateway/Dockerfile
+      worker: api-gateway/Dockerfile
     authentication-service:
-      dockerfile: ./authentication-service/Dockerfile
+      web: authentication-service/Dockerfile
+      worker: authentication-service/Dockerfile
     notification-service:
-      dockerfile: ./notification-service/Dockerfile
+      web: notification-service/Dockerfile
+      worker: notification-service/Dockerfile
     qrcode-service:
-      dockerfile: ./qrcode-service/Dockerfile
+      web: qrcode-service/Dockerfile
+      worker: qrcode-service/Dockerfile
     reservation-service:
-      dockerfile: ./reservation-service/Dockerfile
-
+      web: reservation-service/Dockerfile
+      worker: reservation-service/Dockerfile
