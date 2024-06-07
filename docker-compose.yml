@@ -14,7 +14,6 @@ services:
     env_file:
       - ./main-api-gateway/.env
 
-
   authentication-service:
     build:
       context: ./authentication-service
@@ -24,7 +23,6 @@ services:
     depends_on:
       - mongodb
 
-
   notification-service:
     build:
       context: ./notification-service
@@ -32,14 +30,12 @@ services:
     env_file:
       - ./notification-service/.env
 
-
   qrcode-service:
     build:
       context: ./qrcode-service
       dockerfile: Dockerfile
     env_file:
       - ./qrcode-service/.env
-
 
   reservation-service:
     build:
@@ -52,24 +48,26 @@ services:
     environment:
       - DATABASE_URL=${DATABASE_URL}
 
-
   mongodb:
     image: mongo:latest
     volumes:
       - mongo_data:/data/db
 
-
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   mongo_data:
