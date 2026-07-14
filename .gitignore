@@ -1,1 +1,8 @@
+# Local secrets and environment
 .env
+.env.*
+!.env.example
+
+# IDE and editor metadata
+.idea/
+*.iml
