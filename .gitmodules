@@ -9,7 +9,7 @@
 	url = git@github.com:aidostt/authentication-service.git
 [submodule "reservation-service"]
 	path = reservation-service
-	url = git@github.com:buzukbuzuk/reservation.git
+	url = git@github.com:aidostt/reservation.git
 [submodule "protos"]
 	path = protos
 	url = git@github.com:aidostt/protos.git
