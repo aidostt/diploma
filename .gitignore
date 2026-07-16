@@ -6,3 +6,7 @@
 # IDE and editor metadata
 .idea/
 *.iml
+
+# Working docs and agent tooling — kept locally, not published
+docs/
+.claude/
