@@ -54,11 +54,12 @@ services:
     depends_on:
       - postgres
     environment:
-      - DATABASE_URL=${DATABASE_URL}
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
 
   postgres:
-    image: postgres:latest
+    # Pinned: the schema and tests are verified against 16, and 18+ changed the
+    # image's data-directory layout, which breaks blind "latest" upgrades.
+    image: postgres:16
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
